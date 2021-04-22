@@ -56,9 +56,7 @@ class _BotPageState extends State<BotPage> {
         enableCloseButton: true);
 
     // Adding payload for the bot for initialisation
-    ymFlutterIntegration.addPayload(key: "name", value: "Yellowmessenger");
-    ymFlutterIntegration.addPayload(
-        key: "desc", value: "A Conversational AI Platform");
+    ymFlutterIntegration.addPayload(key: "name", value: "John");
   }
 
   @override
