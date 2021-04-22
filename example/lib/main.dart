@@ -37,7 +37,7 @@ class _BotPageState extends State<BotPage> {
   // Initialising a global object on which the bot widget is called back
   YmFlutterIntegration ymFlutterIntegration;
   // Dummy bot id. (Purrs a lot)
-  String botId = "x1587041004122";
+  String botId = "x1597301712805";
 
   @override
   void initState() {
@@ -56,7 +56,9 @@ class _BotPageState extends State<BotPage> {
         enableCloseButton: true);
 
     // Adding payload for the bot for initialisation
-    ymFlutterIntegration.addPayload(key: "name", value: "John");
+    ymFlutterIntegration.addPayload(key: "name", value: "Yellowmessenger");
+    ymFlutterIntegration.addPayload(
+        key: "desc", value: "A Conversational AI Platform");
   }
 
   @override
