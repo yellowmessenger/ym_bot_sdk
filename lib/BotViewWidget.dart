@@ -36,8 +36,8 @@ class _BotViewWidgetState extends State<BotViewWidget> {
   @override
   Widget build(BuildContext context) {
     // Creating bot url to request for the chatbot
-    String botUrl =
-        '${widget.myBotConfig.botUrl}${widget.myBotPayload.getBotPayload()}';
+    String botUrl = Uri.encodeFull(
+        widget.myBotConfig.botUrl + widget.myBotPayload.getBotPayload());
     return Stack(
       children: <Widget>[
         // return the chatbot from the webview
@@ -59,10 +59,7 @@ class _BotViewWidgetState extends State<BotViewWidget> {
           navigationDelegate: (NavigationRequest request) async {
             // Handling navigation inside of chatbot and outside for third party links
             print('request $request');
-            if (request.url == "about:blank" ||
-                request.url ==
-                    widget.myBotConfig.botUrl +
-                        widget.myBotPayload.getBotPayload()) {
+            if (request.url == "about:blank" || request.url == botUrl) {
               return NavigationDecision.navigate;
             } else if (await canLaunch(request.url)) {
               await launch(request.url);

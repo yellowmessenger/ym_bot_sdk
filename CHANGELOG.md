@@ -1,4 +1,8 @@
-## [0.0.5]
+## [0.0.7]
+
+* Bugfix: url encoding issue
+
+## [0.0.6]
 
 * Updated URL for chatbot
 
