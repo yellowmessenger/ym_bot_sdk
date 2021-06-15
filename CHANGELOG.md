@@ -1,3 +1,8 @@
+## [0.1.0]
+
+* Enhancement: Migrated to null safety
+* Bugfix: added support for ym-widgets
+
 ## [0.0.7]
 
 * Bugfix: url encoding issue

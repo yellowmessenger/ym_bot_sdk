@@ -3,16 +3,16 @@ import 'package:ym_flutter_integration/const/constants.dart';
 
 // Configuration model for sending data to the helper functions
 class BotConfig {
-  String botId;
-  bool enableHistory;
-  bool enableSpeech;
-  bool enableCloseButton;
-  String botUrl;
-  BuildContext context;
+  String? botId;
+  bool? enableHistory;
+  late bool enableSpeech;
+  late bool enableCloseButton;
+  late String botUrl;
+  late BuildContext context;
 
   BotConfig.setConfig({
-    @required String botId,
-    @required BuildContext context,
+    required String botId,
+    required BuildContext context,
     enableHistory,
     enableSpeech,
     enableCloseButton,
