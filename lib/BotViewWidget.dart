@@ -61,7 +61,7 @@ class _BotViewWidgetState extends State<BotViewWidget> {
             print('request $request');
             if (request.url == "about:blank" ||
                 request.url == botUrl ||
-                request.url.contains("yellow.chat")) {
+                request.url.contains("ym.widget=true")) {
               return NavigationDecision.navigate;
             } else if (await canLaunch(request.url)) {
               await launch(request.url);
