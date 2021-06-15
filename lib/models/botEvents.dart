@@ -3,7 +3,7 @@
 /// * Event code
 /// * Event data
 class BotEvent {
-  String code, data;
+  String? code, data;
   BotEvent({this.code, this.data});
 
   BotEvent.fromJson(Map<String, dynamic> json) {

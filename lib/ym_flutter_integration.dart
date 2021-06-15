@@ -41,19 +41,19 @@ class YmFlutterIntegration {
   // Set bot configuration for whihc the bot widget is thrown
   BotConfig myBotConfig = new BotConfig();
   BotPayload myBotPayload = new BotPayload();
-  BuildContext context;
-  String botId;
+  BuildContext? context;
+  String? botId;
   bool enableHistory = false;
   String payloadJSON = "";
-  String botUrl;
+  String? botUrl;
   bool speechServiceAvailability = false;
 
   // -> controller to control the webview
-  WebViewController webViewController;
+  late WebViewController webViewController;
   SpeechToText stt = SpeechToText();
 
   // -> Speech releated varibles
-  String speechResult;
+  String? speechResult;
   bool sendData = false;
 
   // -> Image related data
@@ -66,11 +66,11 @@ class YmFlutterIntegration {
   /// * bool [enableSpeech] is used to enable speech recognition on the chatbot. It is set false by default.
   /// * bool [enableCloseButton] is used to enable close button for the chatbot. It is set true by default.
   void setConfig({
-    @required String botId,
-    @required BuildContext context,
-    bool enableHistory,
-    bool enableSpeech,
-    bool enableCloseButton,
+    required String botId,
+    required BuildContext context,
+    bool? enableHistory,
+    bool? enableSpeech,
+    bool? enableCloseButton,
   }) {
     this.myBotConfig = new BotConfig.setConfig(
         context: context,
@@ -99,7 +99,7 @@ class YmFlutterIntegration {
   ///                 },
   ///```
   /// {@end-tool}
-  Widget getBotWidget({@required BotEventListener botEventListener}) {
+  Widget getBotWidget({required BotEventListener botEventListener}) {
     return BotViewWidget(
       myBotConfig: myBotConfig,
       setWebController: _setWebController,
@@ -113,7 +113,7 @@ class YmFlutterIntegration {
     Navigator.pop(myBotConfig.context);
   }
 
-  void sendEvent({@required String data}) async {
+  void sendEvent({required String data}) async {
     try {
       print(await webViewController.currentUrl());
       await webViewController
@@ -143,7 +143,7 @@ class YmFlutterIntegration {
   /// }
   /// ```
   /// {@end-tool}
-  void addPayload({@required String key, @required String value}) {
+  void addPayload({required String key, required String value}) {
     // -> adds payload to BotPayload model for sending payload to the bot
     myBotPayload.add(key: key, value: value);
     // print(myBotPayload.getBotPayload());
