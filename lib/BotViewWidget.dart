@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:speech_to_text/speech_to_text.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -67,7 +68,7 @@ class _BotViewWidgetState extends State<BotViewWidget> {
               await launch(request.url);
               return NavigationDecision.prevent;
             } else {
-              Scaffold.of(context).showSnackBar(
+              ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(content: Text("Unable to navigate to ${request.url}")),
               );
               return NavigationDecision.prevent;
@@ -179,7 +180,9 @@ class _SpeechAreaState extends State<SpeechArea> {
           .then((value) {
         // print("stopping here");
         // stopRecognitation();
-      }).catchError((onError) => debugPrint("An error occured."));
+      }).catchError((onError) {
+        log("An error occured." + onError);
+      });
     } else {
       intializeSpeechService();
     }

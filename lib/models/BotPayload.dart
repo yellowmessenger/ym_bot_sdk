@@ -1,7 +1,5 @@
 import 'dart:convert';
 
-import 'package:flutter/material.dart';
-
 class BotPayload {
   // Remembering the payload
   Map<String, dynamic> _payload = Map<String, dynamic>();
