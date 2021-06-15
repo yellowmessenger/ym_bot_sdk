@@ -11,17 +11,17 @@ import 'models/botEvents.dart';
 
 class BotViewWidget extends StatefulWidget {
   // To remember bot config
-  final BotConfig myBotConfig;
+  final BotConfig? myBotConfig;
   // For lifting up the web controller form the web view and listening to the post events from the chatbot
-  final Function setWebController, customEventListener;
+  final Function? setWebController, customEventListener;
   // To work with payload add, clear, update
   final BotPayload myBotPayload;
   //constructor for taking the intial config from the client
   BotViewWidget(
       {this.myBotConfig,
       this.setWebController,
-      @required this.myBotPayload,
-      @required this.customEventListener});
+      required this.myBotPayload,
+      required this.customEventListener});
   @override
   _BotViewWidgetState createState() => _BotViewWidgetState();
 }
@@ -37,7 +37,7 @@ class _BotViewWidgetState extends State<BotViewWidget> {
   Widget build(BuildContext context) {
     // Creating bot url to request for the chatbot
     String botUrl = Uri.encodeFull(
-        widget.myBotConfig.botUrl + widget.myBotPayload.getBotPayload());
+        widget.myBotConfig!.botUrl + widget.myBotPayload.getBotPayload());
     return Stack(
       children: <Widget>[
         // return the chatbot from the webview
@@ -47,7 +47,7 @@ class _BotViewWidgetState extends State<BotViewWidget> {
           // enabling the javascript for the webside interations
           javascriptMode: JavascriptMode.unrestricted,
           onWebViewCreated: (WebViewController webViewController) {
-            widget.setWebController(webViewController);
+            widget.setWebController!(webViewController);
           },
           // ignore: prefer_collection_literals
           javascriptChannels: <JavascriptChannel>[
@@ -59,7 +59,9 @@ class _BotViewWidgetState extends State<BotViewWidget> {
           navigationDelegate: (NavigationRequest request) async {
             // Handling navigation inside of chatbot and outside for third party links
             print('request $request');
-            if (request.url == "about:blank" || request.url == botUrl) {
+            if (request.url == "about:blank" ||
+                request.url == botUrl ||
+                request.url.contains("yellow.chat")) {
               return NavigationDecision.navigate;
             } else if (await canLaunch(request.url)) {
               await launch(request.url);
@@ -79,7 +81,7 @@ class _BotViewWidgetState extends State<BotViewWidget> {
           },
           initialMediaPlaybackPolicy: AutoMediaPlaybackPolicy.always_allow,
         ),
-        if (widget.myBotConfig.enableCloseButton)
+        if (widget.myBotConfig!.enableCloseButton)
           // Button to close the chatbot
           Positioned(
               right: 10,
@@ -91,7 +93,7 @@ class _BotViewWidgetState extends State<BotViewWidget> {
                     // Closing bot if there is a widget to go back
                     if (Navigator.canPop(context)) Navigator.pop(context);
                   })),
-        if (widget.myBotConfig.enableSpeech) SpeechArea()
+        if (widget.myBotConfig!.enableSpeech) SpeechArea()
       ],
     );
   }
@@ -101,7 +103,7 @@ class _BotViewWidgetState extends State<BotViewWidget> {
 class SpeechArea extends StatefulWidget {
   // handling user speech with the chatbot using mike button
   const SpeechArea({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -116,8 +118,8 @@ class _SpeechAreaState extends State<SpeechArea> {
   // To check if bot is listening to user voice
   bool listening = false;
   // final result to send to chatbot
-  String speechResult;
-  String prevRes = "";
+  String? speechResult;
+  String? prevRes = "";
 
   // initialise in order interact and start listening to the clients voice
   void intializeSpeechService() async {
@@ -138,7 +140,7 @@ class _SpeechAreaState extends State<SpeechArea> {
               if (speechResult != null &&
                   speechResult != "" &&
                   prevRes != speechResult) {
-                YmFlutterIntegration().sendEvent(data: speechResult);
+                YmFlutterIntegration().sendEvent(data: speechResult!);
                 prevRes = speechResult;
                 speechResult = "";
               }
